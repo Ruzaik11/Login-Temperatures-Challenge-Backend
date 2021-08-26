@@ -35,7 +35,9 @@ class WeatherRepository implements WeatherRepositoryInterface
                    $weather->orderBy('date', 'asc');
             }
 
-            return $weather = $weather->get();
+            return $weather = $weather->get()->groupBy(function($weather){
+                return str_replace(' ','_',$weather->city);
+            });
 
         } catch (Exception $ex) {
             return false;
